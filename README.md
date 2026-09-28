@@ -6,6 +6,8 @@ Python · pandas · scikit-learn · XGBoost · Seaborn · Matplotlib | July 2025
 
 ## Problem
 
+We built this model as a pilot on the public UCI Diabetes 130-US Hospitals dataset, with the aim of adapting it to DHIS2 hospital records in Uganda. It has not yet been run on DHIS2 data.
+
 Readmissions are costly for hospitals and often a sign that a patient's care after discharge was not enough. The aim was to predict which diabetic inpatients are likely to come back to hospital, and to find the clinical and operational factors behind it so follow-up care can be targeted.
 
 **Note on the target:** the model predicts readmission at *any* time after discharge (within 30 days or later) versus no readmission. The EDA also looks at the within 30 day group separately.
@@ -72,6 +74,11 @@ More EDA charts (age distribution, time in hospital, A1C and glucose results) ar
 - Many patients have more than one encounter in the data. The split is by encounter, not by patient, so the same patient can appear in both train and test sets.
 - Some discharge disposition codes mean the patient died or went to hospice, which rules out readmission. Those rows should be removed before modelling.
 - Label encoding gives categorical codes an artificial order. Future work: better features (time since last admission), cost sensitive learning and richer data such as lab trends and clinical notes.
+
+## Next steps: moving to DHIS2
+
+- DHIS2 tracker data records patient visits as separate events, so readmission has to be derived by linking each patient's visits through their tracked entity ID and checking the time between discharge and the next admission.
+- The UCI data uses ICD-9 diagnosis codes, while DHIS2 hospital records usually use ICD-10, so the diagnosis features need an ICD-9 to ICD-10 mapping.
 
 ## How to run
 
